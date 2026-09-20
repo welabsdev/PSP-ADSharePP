@@ -40,7 +40,7 @@ namespace adshare {
 // -------------------------------------------------------------------------
 // Application / protocol configuration
 // -------------------------------------------------------------------------
-inline constexpr char APP_NAME[] = "ADShare";
+inline constexpr char APP_NAME[] = "ADShare++";
 inline constexpr char APP_VERSION[] = "2.3.0";
 inline constexpr char APP_AUTHOR[] = "welabsdev";
 
