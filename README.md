@@ -1,6 +1,8 @@
 # ADShare++ for PlayStation Portable
 > [!NOTE]
 > **ADShare++** is the modular, improved, and C++ rewrite of my original [PSP-ADShare](https://github.com/welabsdev/PSP-ADShare) project.
+> [!IMPORTANT]
+>ADShare and ADShare++ clients can still communicate with each other because they remain protocol-compatible. However, using the >same version on both PSP systems is recommended to ensure the best stability and compatibility.
 
 It is a PSP homebrew application designed for direct file sharing between two PlayStation Portable systems using the console's native **Ad Hoc WLAN**, without requiring an internet connection, router, FTP server, or PC as an intermediary.
 
