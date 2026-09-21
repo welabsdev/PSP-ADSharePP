@@ -147,8 +147,8 @@ int start_adhoc(void)
                      ui_text("Timeout no Ad Hoc", "Ad Hoc timeout"),
                      ui_text("Os PSPs devem usar o mesmo canal.",
                              "Both PSPs must use the same channel."),
-                     ui_text("Use SELECT para escolher Automatico/1/6/11.",
-                             "Use SELECT to choose Auto/1/6/11."), C_ERROR);
+                     ui_text("Escolha o mesmo canal nos dois consoles.",
+                             "Choose the same channel on both consoles."), C_ERROR);
         return 0;
     }
 
@@ -547,8 +547,8 @@ static int apply_adhoc_channel(int value)
             show_message(ui_text("Canal", "Channel"),
                          ui_text("Canal salvo, mas a rede falhou",
                                  "Channel saved, but network failed"),
-                         ui_text("Pressione START/reabra o ADShare.",
-                                 "Press START or reopen ADShare."),
+                         ui_text("Reinicie a conexao Ad Hoc.",
+                                 "Restart the Ad Hoc connection."),
                          ui_text("Verifique se a chave WLAN esta ligada.",
                                  "Make sure the WLAN switch is on."), C_WARNING);
             return 0;
@@ -656,12 +656,14 @@ int channel_selector_screen(void)
             }
         }
 
-        draw_footer(
-            ui_text(
-                "[X] Aplicar [QUADRADO] English [O] Cancelar",
-                "[X] Apply [SQUARE] PT-BR [O] Cancel"
-            )
-        );
+        {
+            const ButtonHint hints[] = {
+                { PspButtonIcon::Cross,  ui_text("Aplicar", "Apply") },
+                { PspButtonIcon::Square, ui_text("English", "PT-BR") },
+                { PspButtonIcon::Circle, ui_text("Cancelar", "Cancel") }
+            };
+            draw_button_hints_centered(hints, 3, 255, 12);
+        }
 
         oslEndDrawing();
         oslSyncFrame();

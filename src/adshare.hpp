@@ -41,7 +41,7 @@ namespace adshare {
 // Application / protocol configuration
 // -------------------------------------------------------------------------
 inline constexpr char APP_NAME[] = "ADShare++";
-inline constexpr char APP_VERSION[] = "2.3.0";
+inline constexpr char APP_VERSION[] = "2.3.3";
 inline constexpr char APP_AUTHOR[] = "welabsdev";
 
 inline constexpr char ADHOC_GROUP[] = "ADSHARE";
@@ -93,6 +93,13 @@ inline constexpr uint8_t DATA_VERSION = 2;
 #define C_FOLDER_DARK   RGBA(190, 145, 32, 255)
 #define C_SCROLL_BG     RGBA(34, 34, 40, 255)
 #define C_SCROLL_BAR    RGBA(150, 150, 160, 255)
+
+/* PSP face-button colors used by the graphical control hints. */
+#define C_BTN_CROSS      RGBA(90, 180, 255, 255)
+#define C_BTN_CIRCLE     RGBA(255, 105, 120, 255)
+#define C_BTN_SQUARE     RGBA(255, 125, 205, 255)
+#define C_BTN_TRIANGLE   RGBA(105, 225, 145, 255)
+#define C_BTN_NEUTRAL    RGBA(190, 190, 200, 255)
 
 // -------------------------------------------------------------------------
 // Wire protocol structures. These stay POD/packed intentionally because they
@@ -202,6 +209,26 @@ enum class UiLanguage : uint8_t {
 };
 
 // -------------------------------------------------------------------------
+// Graphical PSP button hints
+// -------------------------------------------------------------------------
+enum class PspButtonIcon : uint8_t {
+    Cross,
+    Circle,
+    Square,
+    Triangle,
+    L,
+    R,
+    LR,
+    Start,
+    Select
+};
+
+struct ButtonHint {
+    PspButtonIcon button;
+    const char* label;
+};
+
+// -------------------------------------------------------------------------
 // Shared runtime state
 // -------------------------------------------------------------------------
 extern OSL_FONT* g_font;
@@ -267,6 +294,14 @@ void fit_text(const char* src, char* dst, int dst_size, int max_width);
 void draw_background();
 void draw_header(const char* title, const char* right);
 void draw_footer(const char* text);
+int button_icon_width(PspButtonIcon button);
+void draw_button_icon(PspButtonIcon button, int x, int y);
+int button_hint_width(PspButtonIcon button, const char* label);
+void draw_button_hint(PspButtonIcon button, const char* label,
+                      int x, int y, unsigned int text_color = C_TEXT_DIM);
+void draw_button_hints_centered(const ButtonHint* hints, int count,
+                                int y, int gap = 9,
+                                unsigned int text_color = C_TEXT_DIM);
 void draw_panel(int x1, int y1, int x2, int y2, unsigned int border);
 void draw_psp_icon(int x, int y, unsigned int color);
 void draw_file_icon(int x, int y, const char* category, int selected);

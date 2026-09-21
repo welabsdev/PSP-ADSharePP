@@ -95,14 +95,15 @@ static void draw_transfer_screen(
     oslSetTextColor(C_TEXT);
     oslDrawString(390, 103, pct_text);
 
-    oslSetTextColor(C_TEXT_DARK);
-    oslDrawString(
-        center_x(ui_text("[O] Cancelar transferencia",
-                         "[O] Cancel transfer")),
-        190,
-        ui_text("[O] Cancelar transferencia",
-                "[O] Cancel transfer")
-    );
+    {
+        const ButtonHint hints[] = {
+            {
+                PspButtonIcon::Circle,
+                ui_text("Cancelar transferencia", "Cancel transfer")
+            }
+        };
+        draw_button_hints_centered(hints, 1, 190, 0, C_TEXT_DARK);
+    }
 
     oslEndDrawing();
     oslSyncFrame();
@@ -985,12 +986,15 @@ int send_offer_and_wait(
             file_size_text
         );
 
-        draw_footer(
-            ui_text(
-                "[O] Cancelar solicitacao",
-                "[O] Cancel request"
-            )
-        );
+        {
+            const ButtonHint hints[] = {
+                {
+                    PspButtonIcon::Circle,
+                    ui_text("Cancelar solicitacao", "Cancel request")
+                }
+            };
+            draw_button_hints_centered(hints, 1, 255);
+        }
 
         oslEndDrawing();
         oslSyncFrame();

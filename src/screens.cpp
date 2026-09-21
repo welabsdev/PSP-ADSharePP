@@ -261,12 +261,15 @@ void device_info_screen(void)
 
 #undef INFO_ROW
 
-        draw_footer(
-            ui_text(
-                "[L/R] Pagina [SELECT] Canal [QUADRADO] English [O] Voltar",
-                "[L/R] Page [SELECT] Channel [SQUARE] PT-BR [O] Back"
-            )
-        );
+        {
+            const ButtonHint hints[] = {
+                { PspButtonIcon::LR,     ui_text("Pagina", "Page") },
+                { PspButtonIcon::Select, ui_text("Canal", "Channel") },
+                { PspButtonIcon::Square, ui_text("English", "PT-BR") },
+                { PspButtonIcon::Circle, ui_text("Voltar", "Back") }
+            };
+            draw_button_hints_centered(hints, 4, 255, 7);
+        }
 
         oslEndDrawing();
         oslSyncFrame();
@@ -377,20 +380,13 @@ void draw_incoming_offer(void)
         size_text
     );
 
-    oslSetTextColor(C_TEXT);
-    oslDrawString(
-        center_x(
-            ui_text(
-                "[X] Aceitar                 [O] Recusar",
-                "[X] Accept                 [O] Reject"
-            )
-        ),
-        180,
-        ui_text(
-            "[X] Aceitar                 [O] Recusar",
-            "[X] Accept                 [O] Reject"
-        )
-    );
+    {
+        const ButtonHint hints[] = {
+            { PspButtonIcon::Cross,  ui_text("Aceitar", "Accept") },
+            { PspButtonIcon::Circle, ui_text("Recusar", "Reject") }
+        };
+        draw_button_hints_centered(hints, 2, 180, 42, C_TEXT);
+    }
 }
 
 
@@ -712,12 +708,16 @@ void draw_main_screen(void)
         );
     }
 
-    draw_footer(
-        ui_text(
-            "[X] Enviar [SELECT] Canal [QUADRADO] English [TRIANGULO] Info [R] Buscar",
-            "[X] Send [SELECT] Channel [SQUARE] PT-BR [TRIANGLE] Info [R] Search"
-        )
-    );
+    {
+        const ButtonHint hints[] = {
+            { PspButtonIcon::Cross,    ui_text("Enviar", "Send") },
+            { PspButtonIcon::Select,   ui_text("Canal", "Channel") },
+            { PspButtonIcon::Square,   ui_text("English", "PT-BR") },
+            { PspButtonIcon::Triangle, "Info" },
+            { PspButtonIcon::R,        ui_text("Buscar", "Search") }
+        };
+        draw_button_hints_centered(hints, 5, 255, 6);
+    }
 
     if (g_has_pending_offer)
         draw_incoming_offer();
@@ -737,7 +737,6 @@ int start_screen(void)
         char version_text[48];
         char channel_line[96];
         const char* subtitle;
-        const char* prompt;
         const char* offline;
         const char* credit;
 
@@ -753,12 +752,6 @@ int start_screen(void)
             ui_text(
                 "Compartilhamento direto entre PSPs",
                 "Direct sharing between PSPs"
-            );
-
-        prompt =
-            ui_text(
-                "Pressione [START] para ativar Ad Hoc",
-                "Press [START] to enable Ad Hoc"
             );
 
         offline =
@@ -790,9 +783,9 @@ int start_screen(void)
 
         oslSetTextColor(C_TEXT);
         oslDrawString(
-            center_x("A D S H A R E"),
+            center_x("A D S H A R E + +"),
             76,
-            "A D S H A R E"
+            "A D S H A R E + +"
         );
 
         oslSetTextColor(C_PSN_BLUE);
@@ -810,12 +803,15 @@ int start_screen(void)
             C_PSN_BLUE_SOFT
         );
 
-        oslSetTextColor(C_TEXT);
-        oslDrawString(
-            center_x(prompt),
-            148,
-            prompt
-        );
+        {
+            const ButtonHint hints[] = {
+                {
+                    PspButtonIcon::Start,
+                    ui_text("Ativar Ad Hoc", "Enable Ad Hoc")
+                }
+            };
+            draw_button_hints_centered(hints, 1, 147, 0, C_TEXT);
+        }
 
         oslSetTextColor(C_TEXT_DIM);
         oslDrawString(
@@ -837,12 +833,14 @@ int start_screen(void)
             credit
         );
 
-        draw_footer(
-            ui_text(
-                "[SELECT] Canal [QUADRADO] English [START] Iniciar",
-                "[SELECT] Channel [SQUARE] PT-BR [START] Start"
-            )
-        );
+        {
+            const ButtonHint hints[] = {
+                { PspButtonIcon::Select, ui_text("Canal", "Channel") },
+                { PspButtonIcon::Square, ui_text("English", "PT-BR") },
+                { PspButtonIcon::Start,  ui_text("Iniciar", "Start") }
+            };
+            draw_button_hints_centered(hints, 3, 255, 8);
+        }
 
         oslEndDrawing();
         oslSyncFrame();

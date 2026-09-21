@@ -148,14 +148,12 @@ int destination_folder_browser(char* selected_dir, int selected_size)
          */
         draw_panel(12, 48, 468, 76, C_PSN_BLUE_SOFT);
 
-        oslSetTextColor(C_TEXT);
-        oslDrawString(
+        draw_button_hint(
+            PspButtonIcon::Square,
+            ui_text("Salvar nesta pasta", "Save in this folder"),
             24,
             57,
-            ui_text(
-                "[QUADRADO] Salvar nesta pasta",
-                "[SQUARE] Save in this folder"
-            )
+            C_TEXT
         );
 
         if (dir_count == 0) {
@@ -225,19 +223,20 @@ int destination_folder_browser(char* selected_dir, int selected_size)
         }
 
         if (directory_exists("ef0:/")) {
-            draw_footer(
-                ui_text(
-                    "[X] Abrir [QUADRADO] Salvar aqui [O] Voltar [L] ms0:/ef0:",
-                    "[X] Open [SQUARE] Save here [O] Back [L] ms0:/ef0:"
-                )
-            );
+            const ButtonHint hints[] = {
+                { PspButtonIcon::Cross,  ui_text("Abrir", "Open") },
+                { PspButtonIcon::Square, ui_text("Salvar", "Save") },
+                { PspButtonIcon::Circle, ui_text("Voltar", "Back") },
+                { PspButtonIcon::L,      "ms0:/ef0:" }
+            };
+            draw_button_hints_centered(hints, 4, 255, 8);
         } else {
-            draw_footer(
-                ui_text(
-                    "[X] Abrir [QUADRADO] Salvar aqui [O] Voltar",
-                    "[X] Open [SQUARE] Save here [O] Back"
-                )
-            );
+            const ButtonHint hints[] = {
+                { PspButtonIcon::Cross,  ui_text("Abrir", "Open") },
+                { PspButtonIcon::Square, ui_text("Salvar", "Save") },
+                { PspButtonIcon::Circle, ui_text("Voltar", "Back") }
+            };
+            draw_button_hints_centered(hints, 3, 255, 12);
         }
 
         oslEndDrawing();
@@ -488,19 +487,18 @@ int file_browser(char* selected_path, int selected_size)
         }
 
         if (directory_exists("ef0:/")) {
-            draw_footer(
-                ui_text(
-                    "[X] Abrir/Enviar  [O] Voltar  [L] ms0:/ef0:",
-                    "[X] Open/Send     [O] Back    [L] ms0:/ef0:"
-                )
-            );
+            const ButtonHint hints[] = {
+                { PspButtonIcon::Cross,  ui_text("Abrir/Enviar", "Open/Send") },
+                { PspButtonIcon::Circle, ui_text("Voltar", "Back") },
+                { PspButtonIcon::L,      "ms0:/ef0:" }
+            };
+            draw_button_hints_centered(hints, 3, 255, 12);
         } else {
-            draw_footer(
-                ui_text(
-                    "[X] Abrir/Enviar              [O] Voltar",
-                    "[X] Open/Send                 [O] Back"
-                )
-            );
+            const ButtonHint hints[] = {
+                { PspButtonIcon::Cross,  ui_text("Abrir/Enviar", "Open/Send") },
+                { PspButtonIcon::Circle, ui_text("Voltar", "Back") }
+            };
+            draw_button_hints_centered(hints, 2, 255, 28);
         }
 
         oslEndDrawing();
